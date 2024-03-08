@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,7 +12,6 @@ import java.util.Date;
  * @TableName user
  */
 @TableName(value ="user")
-@AllArgsConstructor
 public class User implements Serializable {
     /**
      * 主键
@@ -50,27 +47,27 @@ public class User implements Serializable {
     /**
      * 是否删除
      */
-    private Integer isdelete;
+    private Integer isDelete;
 
     /**
      * 创建者
      */
-    private Integer createuser;
+    private Integer createUser;
 
     /**
      * 更新者
      */
-    private Integer updateuser;
+    private Integer updateUser;
 
     /**
      * 创建时间
      */
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private Date updatetime;
+    private Date updateTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -162,71 +159,71 @@ public class User implements Serializable {
     /**
      * 是否删除
      */
-    public Integer getIsdelete() {
-        return isdelete;
+    public Integer getIsDelete() {
+        return isDelete;
     }
 
     /**
      * 是否删除
      */
-    public void setIsdelete(Integer isdelete) {
-        this.isdelete = isdelete;
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     /**
      * 创建者
      */
-    public Integer getCreateuser() {
-        return createuser;
+    public Integer getCreateUser() {
+        return createUser;
     }
 
     /**
      * 创建者
      */
-    public void setCreateuser(Integer createuser) {
-        this.createuser = createuser;
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
     }
 
     /**
      * 更新者
      */
-    public Integer getUpdateuser() {
-        return updateuser;
+    public Integer getUpdateUser() {
+        return updateUser;
     }
 
     /**
      * 更新者
      */
-    public void setUpdateuser(Integer updateuser) {
-        this.updateuser = updateuser;
+    public void setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
     }
 
     /**
      * 创建时间
      */
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
     /**
      * 创建时间
      */
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     /**
      * 更新时间
      */
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     /**
      * 更新时间
      */
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -247,11 +244,11 @@ public class User implements Serializable {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
-            && (this.getIsdelete() == null ? other.getIsdelete() == null : this.getIsdelete().equals(other.getIsdelete()))
-            && (this.getCreateuser() == null ? other.getCreateuser() == null : this.getCreateuser().equals(other.getCreateuser()))
-            && (this.getUpdateuser() == null ? other.getUpdateuser() == null : this.getUpdateuser().equals(other.getUpdateuser()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()))
-            && (this.getUpdatetime() == null ? other.getUpdatetime() == null : this.getUpdatetime().equals(other.getUpdatetime()));
+            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
+            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -264,11 +261,11 @@ public class User implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getAvatar() == null) ? 0 : getAvatar().hashCode());
-        result = prime * result + ((getIsdelete() == null) ? 0 : getIsdelete().hashCode());
-        result = prime * result + ((getCreateuser() == null) ? 0 : getCreateuser().hashCode());
-        result = prime * result + ((getUpdateuser() == null) ? 0 : getUpdateuser().hashCode());
-        result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
-        result = prime * result + ((getUpdatetime() == null) ? 0 : getUpdatetime().hashCode());
+        result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
+        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
 
@@ -284,11 +281,11 @@ public class User implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", password=").append(password);
         sb.append(", avatar=").append(avatar);
-        sb.append(", isdelete=").append(isdelete);
-        sb.append(", createuser=").append(createuser);
-        sb.append(", updateuser=").append(updateuser);
-        sb.append(", createtime=").append(createtime);
-        sb.append(", updatetime=").append(updatetime);
+        sb.append(", isDelete=").append(isDelete);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", updateUser=").append(updateUser);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

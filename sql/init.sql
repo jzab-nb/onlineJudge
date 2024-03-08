@@ -2,9 +2,9 @@ drop table if exists user;
 create table if not exists user(
     id          int          primary key auto_increment comment '主键',
     role        varchar(128) comment '角色',
-    username    varchar(255) comment '用户名',
+    username    varchar(255) not null unique comment '用户名',
     name        varchar(255) comment '昵称',
-    password    varchar(255) comment '密码',
+    password    varchar(255) not null comment '密码',
     avatar      varchar(255) comment '头像链接',
     isDelete    TINYINT DEFAULT(0) COMMENT '是否删除',
     createUser  int DEFAULT(0) COMMENT '创建者',
