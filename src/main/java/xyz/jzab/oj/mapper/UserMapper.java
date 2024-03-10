@@ -1,5 +1,6 @@
 package xyz.jzab.oj.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import xyz.jzab.oj.model.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-03-07 17:36:14
 * @Entity xyz.jzab.oj.model.entity.User
 */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
 }

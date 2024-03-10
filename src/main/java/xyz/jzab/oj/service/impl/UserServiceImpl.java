@@ -1,7 +1,9 @@
 package xyz.jzab.oj.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import xyz.jzab.oj.common.ResultUtils;
 import xyz.jzab.oj.model.entity.User;
+import xyz.jzab.oj.model.vo.LoginUserVo;
 import xyz.jzab.oj.service.UserService;
 import xyz.jzab.oj.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
+    @Override
+    public LoginUserVo login(String username, String password) {
+        return new LoginUserVo();
+    }
 }
 
 
