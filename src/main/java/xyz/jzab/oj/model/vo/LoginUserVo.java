@@ -14,5 +14,33 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class LoginUserVo {
+    /**
+     * 主键
+     */
+    private Integer id;
+
+    /**
+     * 角色
+     */
+    private String role;
+
+    /**
+     * 用户名
+     */
     private String username;
+
+    /**
+     * 昵称
+     */
+    private String name;
+
+    /**
+     * 头像链接
+     */
+    private String avatar;
+
+    /**
+     * 生成的token
+     */
+    private String token;
 }
