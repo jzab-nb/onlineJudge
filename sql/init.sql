@@ -12,6 +12,21 @@ create table if not exists user(
     createTime  datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
     updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 )comment '用户表';
+-- 教师信息表
+
+-- 学生信息表
+
+-- 班级表
+
+-- 课程表
+
+-- 题库表
+
+-- 题目表
+
+-- 试卷表
+
+-- 考试表
 
 drop table if exists exam;
 create table if not exists exam(

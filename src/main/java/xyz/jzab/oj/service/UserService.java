@@ -10,5 +10,7 @@ import xyz.jzab.oj.model.vo.LoginUserVo;
 * @createDate 2024-03-07 17:36:14
 */
 public interface UserService extends IService<User> {
+    LoginUserVo createLoginVo(User user);
     LoginUserVo login(String username, String password);
+    LoginUserVo updateToken(String token);
 }

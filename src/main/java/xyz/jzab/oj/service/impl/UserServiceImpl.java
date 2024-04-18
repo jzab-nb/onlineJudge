@@ -27,16 +27,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
     @Resource
     UserMapper userMapper;
-    @Override
-    public LoginUserVo login(String username, String password) {
-        QueryWrapper<User> query = new QueryWrapper<>();
-        query.eq("username",username).eq("password", password);
-        User user = userMapper.selectOne(query);
-        if(user==null) throw new BusinessException(ErrorCode.PARAMS_ERROR.getCode(), "用户名或密码错误");
+
+    public LoginUserVo createLoginVo(User user){
         LoginUserVo loginUserVo = new LoginUserVo( );
         BeanUtils.copyProperties(user, loginUserVo);
         loginUserVo.setToken(JwtUtils.createToken(user.getId()));
         return loginUserVo;
+    }
+
+    @Override
+    public LoginUserVo login(String username, String password) {
+        // 用户登录
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("username",username).eq("password", password);
+        User user = userMapper.selectOne(query);
+        if(user==null) throw new BusinessException(ErrorCode.PARAMS_ERROR.getCode(), "用户名或密码错误");
+        return createLoginVo(user);
+    }
+
+    @Override
+    public LoginUserVo updateToken(String token) {
+        // 更新token
+        Integer id = JwtUtils.getUserIdFromToken(token);
+        User user = this.getById(id);
+        if(user==null) throw new BusinessException(ErrorCode.PARAMS_ERROR.getCode(), "Token错误");
+        return createLoginVo(user);
     }
 }
 

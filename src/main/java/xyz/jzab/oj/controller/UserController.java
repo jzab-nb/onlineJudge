@@ -1,15 +1,12 @@
 package xyz.jzab.oj.controller;
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 import xyz.jzab.oj.annotation.AuthCheck;
 import xyz.jzab.oj.common.BaseResponse;
-import xyz.jzab.oj.common.ErrorCode;
 import xyz.jzab.oj.common.ResultUtils;
-import xyz.jzab.oj.model.enums.UserRoleEnum;
+import xyz.jzab.oj.model.dto.user.UserLoginRequest;
 import xyz.jzab.oj.model.vo.LoginUserVo;
 import xyz.jzab.oj.service.UserService;
 
@@ -19,25 +16,23 @@ import xyz.jzab.oj.service.UserService;
  */
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:8000", maxAge = 3600)
 public class UserController {
 
     @Resource
     UserService userService;
 
+    // 登录接口
     @PostMapping("/login")
-    public BaseResponse<LoginUserVo> login(){
-        return ResultUtils.success(userService.login("jzab","aaa"));
+    public BaseResponse<LoginUserVo> login(@RequestBody UserLoginRequest request){
+        return ResultUtils.success(userService.login(request.getUsername(),request.getPassword()));
     }
 
-    @RequestMapping("/test1")
-    @AuthCheck()
-    public BaseResponse<Integer> test1(){
-        return ResultUtils.success(1);
+    // 更新token接口
+    @GetMapping("/updateToken")
+    public BaseResponse<LoginUserVo> updateToken(HttpServletRequest request){
+        return ResultUtils.success(userService.updateToken(request.getHeader("token")));
     }
 
-    @RequestMapping("/test2")
-    @AuthCheck(mustRole = {UserRoleEnum.ADMIN})
-    public BaseResponse<Integer> test2(){
-        return ResultUtils.success(2);
-    }
+    // 分页查询用户
 }

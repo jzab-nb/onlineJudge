@@ -3,6 +3,7 @@ package xyz.jzab.oj.aop;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -41,7 +42,10 @@ public class AuthInterceptor {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest( );
         // 获取请求头中的token
         String token = request.getHeader("token");
-        log.info("=======\n"+token+"\n=======");
+        // token为空
+        if(StringUtils.isBlank(token)){
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+        }
         // 解析token
         Integer userId = JwtUtils.getUserIdFromToken(token);
         // 获取当前登录的用户
