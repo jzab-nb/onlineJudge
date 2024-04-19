@@ -16,7 +16,7 @@ import xyz.jzab.oj.service.UserService;
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:8000", maxAge = 3600)
+@CrossOrigin()
 public class UserController {
 
     @Resource
