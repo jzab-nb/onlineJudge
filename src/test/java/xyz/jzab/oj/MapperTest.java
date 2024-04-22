@@ -19,9 +19,6 @@ public class MapperTest {
     UserMapper userMapper;
     @Test
     void baseTest() {
-        User user = new User(0, "root", "jzab", "王永霖", "aaa", "D://test.img", 0, -1, -1, null, null);
-        userMapper.insert(user);
-        System.out.println(userMapper.selectById(1));
-        System.out.println("1" );
+
     }
 }
