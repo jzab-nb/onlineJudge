@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "file")
 @Data
 public class FileConfig {
-    private String maxSize;
+    private Long maxSize;
     private String path;
 }

@@ -1,11 +1,18 @@
 package xyz.jzab.oj.model.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
  * @author JZAB
  * @from http://vip.jzab.xyz
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserVo     {
     private Integer id;
 
