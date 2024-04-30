@@ -17,6 +17,7 @@ import xyz.jzab.oj.model.dto.user.UserAddRequest;
 import xyz.jzab.oj.model.dto.user.UserUpdateRequest;
 import xyz.jzab.oj.model.entity.User;
 import xyz.jzab.oj.model.enums.FileTypeEnums;
+import xyz.jzab.oj.model.enums.UserRoleEnum;
 import xyz.jzab.oj.model.vo.LoginUserVo;
 import xyz.jzab.oj.model.vo.UserVo;
 import xyz.jzab.oj.service.UserService;
@@ -77,6 +78,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public Boolean addUser(UserAddRequest userAddRequest, User loginUser, HttpSession session) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>( );
+        wrapper.eq("username", userAddRequest.getUsername( ));
+        User one = this.getOne(wrapper);
+        if(one!=null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户名已存在");
+        }
         User user = new User( );
         BeanUtils.copyProperties(userAddRequest, user);
         user.setCreateUser(loginUser.getId());

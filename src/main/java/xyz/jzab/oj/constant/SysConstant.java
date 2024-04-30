@@ -5,5 +5,5 @@ package xyz.jzab.oj.constant;
  * @from http://vip.jzab.xyz
  */
 public class SysConstant {
-    public static final String DEFAULT_IMG = "/root/data/default.png";
+    public static final String DEFAULT_IMG = "/default.png";
 }

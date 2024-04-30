@@ -13,33 +13,18 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserVo     {
+public class ClazzVo {
     private Integer id;
 
     /**
-     * 角色
-     */
-    private String role;
-
-    /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 昵称
+     * 班级名称
      */
     private String name;
 
     /**
-     * 头像链接
+     * 教师ID
      */
-    private String avatar;
-
-    /**
-     * 是否删除
-     */
-    private Integer isDelete;
+    private Integer teacherId;
 
     /**
      * 创建者

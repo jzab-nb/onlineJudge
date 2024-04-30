@@ -23,11 +23,6 @@ public class UserUpdateRequest {
     private String role;
 
     /**
-     * 用户名
-     */
-    private String username;
-
-    /**
      * 昵称
      */
     private String name;

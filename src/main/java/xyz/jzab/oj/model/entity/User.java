@@ -86,7 +86,7 @@ public class User implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        generator.domain.User other = (generator.domain.User) that;
+        User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
                 && (this.getRole() == null ? other.getRole() == null : this.getRole().equals(other.getRole()))
                 && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
