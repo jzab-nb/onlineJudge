@@ -27,6 +27,11 @@ public class ClazzVo {
     private Integer teacherId;
 
     /**
+     * 教师姓名
+     */
+    private String teacherName;
+
+    /**
      * 创建者
      */
     private Integer createUser;

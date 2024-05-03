@@ -2,6 +2,7 @@ package xyz.jzab.oj.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import xyz.jzab.oj.common.ErrorCode;
 import xyz.jzab.oj.common.PageRequest;
@@ -14,6 +15,7 @@ import xyz.jzab.oj.model.vo.ClazzVo;
 import xyz.jzab.oj.service.ClazzService;
 import xyz.jzab.oj.mapper.ClazzMapper;
 import org.springframework.stereotype.Service;
+import xyz.jzab.oj.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,9 @@ import java.util.List;
 @Service
 public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz>
     implements ClazzService{
+
+    @Resource
+    UserService userService;
 
     @Override
     public boolean addClazz(ClazzAddRequest clazzAddRequest, User loginUser) {
@@ -65,6 +70,9 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzMapper, Clazz>
     @Override
     public ClazzVo getVo(Clazz clazz) {
         ClazzVo vo = new ClazzVo( );
+        vo.setTeacherName(userService.getById(
+                clazz.getTeacherId()
+        ).getName());
         BeanUtils.copyProperties(clazz,vo);
         return vo;
     }

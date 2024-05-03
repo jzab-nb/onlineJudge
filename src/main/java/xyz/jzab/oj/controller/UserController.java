@@ -1,5 +1,6 @@
 package xyz.jzab.oj.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import xyz.jzab.oj.model.enums.UserRoleEnum;
 import xyz.jzab.oj.model.vo.LoginUserVo;
 import xyz.jzab.oj.model.vo.UserVo;
 import xyz.jzab.oj.service.UserService;
+
+import java.util.List;
 
 /**
  * @author JZAB
@@ -95,5 +98,19 @@ public class UserController {
         User user = userService.getById(id);
         if(user==null) throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "用户不存在");
         return ResultUtils.success(userService.getVo(user));
+    }
+
+    @GetMapping("/list/teacher")
+    public BaseResponse<List<UserVo>> listTeacher(){
+        QueryWrapper<User> wrapper = new QueryWrapper<>( );
+        wrapper.eq("role", UserRoleEnum.TEACHER.getDesc());
+        return ResultUtils.success(userService.getVos(userService.list( wrapper )));
+    }
+
+    @GetMapping("/list/student")
+    public BaseResponse<List<UserVo>> listStudent(){
+        QueryWrapper<User> wrapper = new QueryWrapper<>( );
+        wrapper.eq("role", UserRoleEnum.STUDENT.getDesc());
+        return ResultUtils.success(userService.getVos(userService.list( wrapper )));
     }
 }
