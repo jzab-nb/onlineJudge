@@ -1,8 +1,10 @@
-package xyz.jzab.oj.model.dto.course;
+package xyz.jzab.oj.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * @author JZAB
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseUpdateRequest {
+public class CourseVo {
     private Integer id;
 
     /**
@@ -38,4 +40,24 @@ public class CourseUpdateRequest {
      * 关联的教师ID
      */
     private Integer teacherId;
+
+    /**
+     * 创建者
+     */
+    private Integer createUser;
+
+    /**
+     * 更新者
+     */
+    private Integer updateUser;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }

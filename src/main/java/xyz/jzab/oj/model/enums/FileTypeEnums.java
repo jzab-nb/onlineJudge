@@ -5,7 +5,8 @@ package xyz.jzab.oj.model.enums;
  * @from http://vip.jzab.xyz
  */
 public enum FileTypeEnums {
-    USER_AVATAR("USER_AVATAR","image");
+    USER_AVATAR("USER_AVATAR","image"),
+    COURSE_IMG("COURSE_IMG","image");
 
     private FileTypeEnums(String type, String contentType){
         this.type = type;

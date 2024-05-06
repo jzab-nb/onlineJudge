@@ -9,12 +9,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 课程表
- * @TableName course
+ * 学生课程关联表
+ * @TableName stuincourse
  */
-@TableName(value ="course")
+@TableName(value ="stuincourse")
 @Data
-public class Course implements Serializable {
+public class Stuincourse implements Serializable {
     /**
      * 主键
      */
@@ -22,29 +22,14 @@ public class Course implements Serializable {
     private Integer id;
 
     /**
-     * 课程名字
+     * 学生ID
      */
-    private String name;
+    private Integer stuId;
 
     /**
-     * 课程图片
+     * 课程ID
      */
-    private String img;
-
-    /**
-     * 课程介绍
-     */
-    private String introduce;
-
-    /**
-     * 是否公开
-     */
-    private Integer open;
-
-    /**
-     * 关联的教师ID
-     */
-    private Integer teacherId;
+    private Integer courseId;
 
     /**
      * 是否删除
@@ -85,13 +70,10 @@ public class Course implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Course other = (Course) that;
+        Stuincourse other = (Stuincourse) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
-            && (this.getIntroduce() == null ? other.getIntroduce() == null : this.getIntroduce().equals(other.getIntroduce()))
-            && (this.getOpen() == null ? other.getOpen() == null : this.getOpen().equals(other.getOpen()))
-            && (this.getTeacherId() == null ? other.getTeacherId() == null : this.getTeacherId().equals(other.getTeacherId()))
+            && (this.getStuId() == null ? other.getStuId() == null : this.getStuId().equals(other.getStuId()))
+            && (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
@@ -104,11 +86,8 @@ public class Course implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
-        result = prime * result + ((getIntroduce() == null) ? 0 : getIntroduce().hashCode());
-        result = prime * result + ((getOpen() == null) ? 0 : getOpen().hashCode());
-        result = prime * result + ((getTeacherId() == null) ? 0 : getTeacherId().hashCode());
+        result = prime * result + ((getStuId() == null) ? 0 : getStuId().hashCode());
+        result = prime * result + ((getCourseId() == null) ? 0 : getCourseId().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
@@ -124,11 +103,8 @@ public class Course implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", img=").append(img);
-        sb.append(", introduce=").append(introduce);
-        sb.append(", open=").append(open);
-        sb.append(", teacherId=").append(teacherId);
+        sb.append(", stuId=").append(stuId);
+        sb.append(", courseId=").append(courseId);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);

@@ -2,15 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.jzab.oj.mapper.CourseMapper">
+<mapper namespace="xyz.jzab.oj.mapper.StuincourseMapper">
 
-    <resultMap id="BaseResultMap" type="xyz.jzab.oj.model.entity.Course">
+    <resultMap id="BaseResultMap" type="xyz.jzab.oj.model.entity.Stuincourse">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="img" column="img" jdbcType="VARCHAR"/>
-            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
-            <result property="open" column="open" jdbcType="INTEGER"/>
-            <result property="teacherId" column="teacherId" jdbcType="INTEGER"/>
+            <result property="stuId" column="stuId" jdbcType="INTEGER"/>
+            <result property="courseId" column="courseId" jdbcType="INTEGER"/>
             <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
             <result property="createUser" column="createUser" jdbcType="INTEGER"/>
             <result property="updateUser" column="updateUser" jdbcType="INTEGER"/>
@@ -19,8 +16,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,img,
-        introduce,open,teacherId,
+        id,stuId,courseId,
         isDelete,createUser,updateUser,
         createTime,updateTime
     </sql>

@@ -47,7 +47,7 @@ create table if not exists course(
     name varchar(255) not null comment '课程名字',
     img  text comment '课程图片',
     introduce   text comment '课程介绍',
-    clazzId     int not null   comment '关联的班级ID',
+    open int not null default(0) comment '是否公开',
     teacherId   int not null   comment '关联的教师ID',
     isDelete    TINYINT DEFAULT(0) COMMENT '是否删除',
     createUser  int DEFAULT(0) COMMENT '创建者',
