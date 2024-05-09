@@ -79,7 +79,6 @@ public class CourseController {
         Course course = new Course( );
         BeanUtils.copyProperties(courseUpdateRequest,course);
         return ResultUtils.success(courseService.updateById(course));
-
     }
 
     // 查:分页获取课程列表
@@ -120,15 +119,27 @@ public class CourseController {
 
     // 课程内添加学生(传入班级号批量添加)
     @PostMapping("/students/addByClazz")
-    public BaseResponse<Boolean> addStudentsByClazz(@RequestBody AddByClazzRequest addByClazzRequest){
+    public BaseResponse<Integer> addStudentsByClazz(@RequestBody AddByClazzRequest addByClazzRequest, HttpServletRequest request){
+        User loginUser = userService.getLoginUser(request);
         // 找到对应的课程,批量找出班级内的学生
         Course course = courseService.getById(addByClazzRequest.getCourseId());
         List<Stuincourse> list = new ArrayList<>(  );
         for (Clazz clazz : clazzService.listByIds(addByClazzRequest.getClazzIds( ))) {
-            Stuincourse stuincourse = new Stuincourse( );
-            QueryWrapper<Stuinclazz> wrapper = new QueryWrapper<>( );
+
+            LambdaQueryWrapper<Stuinclazz> wrapper = new LambdaQueryWrapper<>( );
+            wrapper.eq(Stuinclazz::getClazzId,clazz.getId());
+            List<Stuinclazz> stuInClazzList = stuinclazzService.list(wrapper);
+            for (Stuinclazz stuinclazz : stuInClazzList) {
+                Stuincourse stuincourse = new Stuincourse( );
+                stuincourse.setStuId(stuinclazz.getStuId());
+                stuincourse.setCourseId(course.getId());
+                stuincourse.setCreateUser(loginUser.getId());
+                stuincourse.setUpdateUser(loginUser.getId());
+                list.add(stuincourse);
+            }
         }
-        return ResultUtils.success(null);
+        stuincourseService.saveBatch(list);
+        return ResultUtils.success(list.size());
     }
 
     public List<CourseVo> getVos(List<Course> courseList){
