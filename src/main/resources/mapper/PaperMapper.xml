@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="xyz.jzab.oj.mapper.QuestionMapper">
+<mapper namespace="xyz.jzab.oj.mapper.PaperMapper">
 
-    <resultMap id="BaseResultMap" type="xyz.jzab.oj.model.entity.Question">
+    <resultMap id="BaseResultMap" type="xyz.jzab.oj.model.entity.Paper">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="type" column="type" jdbcType="VARCHAR"/>
-            <result property="content" column="content" jdbcType="VARCHAR" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
-            <result property="questionBankId" column="questionBankId" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="questionList" column="questionList" jdbcType="VARCHAR"/>
             <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
             <result property="createUser" column="createUser" jdbcType="INTEGER"/>
             <result property="updateUser" column="updateUser" jdbcType="INTEGER"/>
@@ -17,8 +17,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,type,content,
-        questionBankId,isDelete,createUser,
+        id,name,introduce,
+        questionList,isDelete,createUser,
         updateUser,createTime,updateTime
     </sql>
 </mapper>

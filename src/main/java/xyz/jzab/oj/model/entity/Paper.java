@@ -4,20 +4,17 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Map;
+import lombok.Data;
 
 /**
- * 题目表
- * @TableName question
+ * 试卷表
+ * @TableName paper
  */
-@TableName(value ="question",autoResultMap = true)
+@TableName(value ="paper")
 @Data
-public class Question implements Serializable {
+public class Paper implements Serializable {
     /**
      * 主键
      */
@@ -25,20 +22,19 @@ public class Question implements Serializable {
     private Integer id;
 
     /**
-     * 题目类型
+     * 试卷名字
      */
-    private String type;
+    private String name;
 
     /**
-     * 题目内容
+     * 试卷介绍
      */
-    @TableField(value = "content",typeHandler = JacksonTypeHandler.class)
-    private Map<String,Object> content;
+    private String introduce;
 
     /**
-     * 关联的题库ID
+     * 试卷题目列表
      */
-    private Integer questionBankId;
+    private Integer[] questionList;
 
     /**
      * 是否删除
@@ -79,11 +75,11 @@ public class Question implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Question other = (Question) that;
+        Paper other = (Paper) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
-            && (this.getQuestionBankId() == null ? other.getQuestionBankId() == null : this.getQuestionBankId().equals(other.getQuestionBankId()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getIntroduce() == null ? other.getIntroduce() == null : this.getIntroduce().equals(other.getIntroduce()))
+            && (this.getQuestionList() == null ? other.getQuestionList() == null : this.getQuestionList().equals(other.getQuestionList()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
@@ -96,9 +92,9 @@ public class Question implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
-        result = prime * result + ((getQuestionBankId() == null) ? 0 : getQuestionBankId().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getIntroduce() == null) ? 0 : getIntroduce().hashCode());
+        result = prime * result + ((getQuestionList() == null) ? 0 : getQuestionList().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
@@ -114,9 +110,9 @@ public class Question implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", type=").append(type);
-        sb.append(", content=").append(content);
-        sb.append(", questionBankId=").append(questionBankId);
+        sb.append(", name=").append(name);
+        sb.append(", introduce=").append(introduce);
+        sb.append(", questionList=").append(questionList);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);
