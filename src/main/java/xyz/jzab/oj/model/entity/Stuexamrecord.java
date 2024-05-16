@@ -6,17 +6,19 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 
 /**
- * 试卷表
- * @TableName paper
+ * 学生考试记录表
+ * @TableName stuexamrecord
  */
-@TableName(value ="paper")
+@TableName(value ="stuexamrecord")
 @Data
-public class Paper implements Serializable {
+public class Stuexamrecord implements Serializable {
     /**
      * 主键
      */
@@ -24,20 +26,25 @@ public class Paper implements Serializable {
     private Integer id;
 
     /**
-     * 试卷名字
+     * 学生ID
      */
-    private String name;
+    private Integer stuId;
 
     /**
-     * 试卷介绍
+     * 考试ID
      */
-    private String introduce;
+    private Integer examId;
 
     /**
-     * 试卷题目列表
+     * 考试答案
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
-    private Integer[] questionList;
+    private List<Map<String,Object>> answerList;
+
+    /**
+     * 考试分数
+     */
+    private Integer score;
 
     /**
      * 是否删除
@@ -78,16 +85,17 @@ public class Paper implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Paper other = (Paper) that;
+        Stuexamrecord other = (Stuexamrecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getIntroduce() == null ? other.getIntroduce() == null : this.getIntroduce().equals(other.getIntroduce()))
-            && (this.getQuestionList() == null ? other.getQuestionList() == null : this.getQuestionList().equals(other.getQuestionList()))
-            && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
-            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
-            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+                && (this.getStuId() == null ? other.getStuId() == null : this.getStuId().equals(other.getStuId()))
+                && (this.getExamId() == null ? other.getExamId() == null : this.getExamId().equals(other.getExamId()))
+                && (this.getAnswerList() == null ? other.getAnswerList() == null : this.getAnswerList().equals(other.getAnswerList()))
+                && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
+                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
+                && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+                && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -95,9 +103,10 @@ public class Paper implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getIntroduce() == null) ? 0 : getIntroduce().hashCode());
-        result = prime * result + ((getQuestionList() == null) ? 0 : getQuestionList().hashCode());
+        result = prime * result + ((getStuId() == null) ? 0 : getStuId().hashCode());
+        result = prime * result + ((getExamId() == null) ? 0 : getExamId().hashCode());
+        result = prime * result + ((getAnswerList() == null) ? 0 : getAnswerList().hashCode());
+        result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
@@ -113,9 +122,10 @@ public class Paper implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", introduce=").append(introduce);
-        sb.append(", questionList=").append(questionList);
+        sb.append(", stuId=").append(stuId);
+        sb.append(", examId=").append(examId);
+        sb.append(", answerList=").append(answerList);
+        sb.append(", score=").append(score);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);

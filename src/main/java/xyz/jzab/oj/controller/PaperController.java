@@ -1,7 +1,6 @@
 package xyz.jzab.oj.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import xyz.jzab.oj.model.entity.Paper;
 import xyz.jzab.oj.model.entity.User;
 import xyz.jzab.oj.model.vo.GAVo;
 import xyz.jzab.oj.model.vo.PaperVo;
-import xyz.jzab.oj.model.vo.QuestionVo;
 import xyz.jzab.oj.service.PaperService;
 import xyz.jzab.oj.service.UserService;
 
@@ -62,8 +60,12 @@ public class PaperController {
     }
 
     @PostMapping("/update")
-    public BaseResponse<Boolean> updatePaper(@RequestBody PaperUpdateRequest paperUpdateRequest){
-
+    public BaseResponse<Boolean> updatePaper(@RequestBody PaperUpdateRequest paperUpdateRequest, HttpServletRequest request){
+        User loginUser = userService.getLoginUser(request);
+        Paper paper = new Paper();
+        BeanUtils.copyProperties(paperUpdateRequest,paper);
+        paper.setUpdateUser(loginUser.getId());
+        return ResultUtils.success(paperService.updateById(paper));
     }
 
     // 获取试卷列表
@@ -78,10 +80,16 @@ public class PaperController {
         return ResultUtils.success(voPage);
     }
 
+    @PostMapping("/del/{id}")
+    public BaseResponse<Boolean> delPaper(@PathVariable Integer id){
+        return ResultUtils.success(paperService.removeById(id));
+    }
+
     public List<PaperVo> getVos(List<Paper> paperList){
         ArrayList<PaperVo> voList = new ArrayList<>( );
         for (Paper paper : paperList) {
             PaperVo vo = new PaperVo(  );
+            BeanUtils.copyProperties(paper,vo);
             voList.add(vo);
         }
         return voList;

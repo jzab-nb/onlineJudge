@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import xyz.jzab.oj.annotation.AuthCheck;
 import xyz.jzab.oj.common.BaseResponse;
 import xyz.jzab.oj.common.PageRequest;
 import xyz.jzab.oj.common.ResultUtils;
@@ -16,6 +17,8 @@ import xyz.jzab.oj.model.dto.course.CourseAddRequest;
 import xyz.jzab.oj.model.dto.course.CourseUpdateRequest;
 import xyz.jzab.oj.model.entity.*;
 import xyz.jzab.oj.model.enums.FileTypeEnums;
+import xyz.jzab.oj.model.enums.UserRoleEnum;
+import xyz.jzab.oj.model.vo.ClazzVo;
 import xyz.jzab.oj.model.vo.CourseVo;
 import xyz.jzab.oj.model.vo.StuInCourseVo;
 import xyz.jzab.oj.service.*;
@@ -23,6 +26,7 @@ import xyz.jzab.oj.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author JZAB
@@ -92,6 +96,29 @@ public class CourseController {
         return ResultUtils.success(voPage);
     }
 
+    @GetMapping("/list/page/byStudent/{id}")
+    public BaseResponse<Page<CourseVo>> pageCourseByStudent(PageRequest pageRequest, @PathVariable Integer id){
+        LambdaQueryWrapper<Stuincourse> queryWrapper = new LambdaQueryWrapper<>(  );
+        queryWrapper.eq(Stuincourse::getStuId,id);
+        Page<Stuincourse> page = new Page<>(pageRequest.getCurrent(), pageRequest.getSize());
+        page = stuincourseService.page(page,queryWrapper);
+
+        if(page.getRecords().size()== 0){
+            return ResultUtils.success(new Page<>(pageRequest.getCurrent(), pageRequest.getSize(), 0));
+        }else{
+            Page<CourseVo> voPage = new Page<>(pageRequest.getCurrent(), pageRequest.getSize(), page.getTotal());
+            List<Integer> ids = page.getRecords( ).stream( ).map(Stuincourse::getCourseId).distinct().
+                    collect(Collectors.toList( ));
+            voPage.setRecords(getVos(courseService.listByIds(ids)));
+            return ResultUtils.success(voPage);
+        }
+    }
+
+    @GetMapping("/get/{id}")
+    public BaseResponse<CourseVo> getOneCourse(@PathVariable int id){
+        return ResultUtils.success(getVo(courseService.getById(id )));
+    }
+
     // 获取课程内的学生
     @GetMapping("/list/{id}/students")
     public BaseResponse<List<StuInCourseVo>> getStudentsInCourse(@PathVariable Integer id){
@@ -141,13 +168,27 @@ public class CourseController {
         return ResultUtils.success(list.size());
     }
 
+    @PostMapping("/students/quit/{id}")
+    @AuthCheck(mustRole = {UserRoleEnum.STUDENT})
+    public BaseResponse<Boolean> quitCourse(@PathVariable Integer id, HttpServletRequest request){
+        User loginUser = userService.getLoginUser(request);
+        LambdaQueryWrapper<Stuincourse> wrapper = new LambdaQueryWrapper<>( );
+        wrapper.eq(Stuincourse::getStuId,loginUser.getId());
+        wrapper.eq(Stuincourse::getCourseId,id);
+        return ResultUtils.success(stuincourseService.remove(wrapper));
+    }
+
     public List<CourseVo> getVos(List<Course> courseList){
         ArrayList<CourseVo> vos = new ArrayList<>( );
         for (Course course : courseList) {
-            CourseVo courseVo = new CourseVo( );
-            BeanUtils.copyProperties(course,courseVo);
-            vos.add(courseVo);
+            vos.add(getVo(course));
         }
         return vos;
+    }
+
+    public CourseVo getVo(Course course){
+        CourseVo courseVo = new CourseVo( );
+        BeanUtils.copyProperties(course,courseVo);
+        return courseVo;
     }
 }

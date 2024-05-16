@@ -1,4 +1,4 @@
-package xyz.jzab.oj.model.entity;
+package generator.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -6,17 +6,15 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
-
-import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
 
 /**
- * 试卷表
- * @TableName paper
+ * 考试表
+ * @TableName exam
  */
-@TableName(value ="paper")
+@TableName(value ="exam")
 @Data
-public class Paper implements Serializable {
+public class Exam implements Serializable {
     /**
      * 主键
      */
@@ -24,20 +22,29 @@ public class Paper implements Serializable {
     private Integer id;
 
     /**
-     * 试卷名字
+     * 考试标题
      */
-    private String name;
+    private String title;
 
     /**
-     * 试卷介绍
+     * 考试简介
      */
     private String introduce;
 
     /**
-     * 试卷题目列表
+     * 关联的试卷ID
      */
-    @TableField(typeHandler = JacksonTypeHandler.class)
-    private Integer[] questionList;
+    private Integer paperId;
+
+    /**
+     * 关联的课程ID
+     */
+    private Integer courseId;
+
+    /**
+     * 考试状态
+     */
+    private String status;
 
     /**
      * 是否删除
@@ -78,11 +85,13 @@ public class Paper implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Paper other = (Paper) that;
+        Exam other = (Exam) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getIntroduce() == null ? other.getIntroduce() == null : this.getIntroduce().equals(other.getIntroduce()))
-            && (this.getQuestionList() == null ? other.getQuestionList() == null : this.getQuestionList().equals(other.getQuestionList()))
+            && (this.getPaperId() == null ? other.getPaperId() == null : this.getPaperId().equals(other.getPaperId()))
+            && (this.getCourseId() == null ? other.getCourseId() == null : this.getCourseId().equals(other.getCourseId()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
@@ -95,9 +104,11 @@ public class Paper implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getIntroduce() == null) ? 0 : getIntroduce().hashCode());
-        result = prime * result + ((getQuestionList() == null) ? 0 : getQuestionList().hashCode());
+        result = prime * result + ((getPaperId() == null) ? 0 : getPaperId().hashCode());
+        result = prime * result + ((getCourseId() == null) ? 0 : getCourseId().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
@@ -113,9 +124,11 @@ public class Paper implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
+        sb.append(", title=").append(title);
         sb.append(", introduce=").append(introduce);
-        sb.append(", questionList=").append(questionList);
+        sb.append(", paperId=").append(paperId);
+        sb.append(", courseId=").append(courseId);
+        sb.append(", status=").append(status);
         sb.append(", isDelete=").append(isDelete);
         sb.append(", createUser=").append(createUser);
         sb.append(", updateUser=").append(updateUser);

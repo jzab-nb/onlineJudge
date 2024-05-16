@@ -30,6 +30,7 @@ import xyz.jzab.oj.service.UserService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author JZAB
@@ -83,6 +84,23 @@ public class ClazzController {
     }
 
     // 获取学生所有班级
+    @GetMapping("/list/page/byStudent/{id}")
+    public BaseResponse<Page<ClazzVo>> pageByStudent(PageRequest pageRequest, @PathVariable Integer id){
+        LambdaQueryWrapper<Stuinclazz> queryWrapper = new LambdaQueryWrapper<>(  );
+        queryWrapper.eq(Stuinclazz::getStuId,id);
+        Page<Stuinclazz> page = new Page<>(pageRequest.getCurrent(), pageRequest.getSize());
+        page = stuinClazzService.page(page,queryWrapper);
+
+        if(page.getRecords().size()== 0){
+            return ResultUtils.success(new Page<>(pageRequest.getCurrent(), pageRequest.getSize(), 0));
+        }else{
+            Page<ClazzVo> voPage = new Page<>(pageRequest.getCurrent(), pageRequest.getSize(), page.getTotal());
+            List<Integer> ids = page.getRecords( ).stream( ).map(Stuinclazz::getClazzId).distinct().
+                    collect(Collectors.toList( ));
+            voPage.setRecords(clazzService.getVos(clazzService.listByIds(ids)));
+            return ResultUtils.success(voPage);
+        }
+    }
 
     // 获取班级内所有学生
     @GetMapping("/list/{id}/students")
@@ -128,5 +146,15 @@ public class ClazzController {
     public BaseResponse<Integer> batchDelStudents(@RequestBody List<Integer> ids) {
         stuinClazzService.removeBatchByIds(ids);
         return ResultUtils.success(ids.size());
+    }
+
+    @PostMapping("/students/quit/{id}")
+    @AuthCheck(mustRole = {UserRoleEnum.STUDENT})
+    public BaseResponse<Boolean> quitClazz(@PathVariable Integer id, HttpServletRequest request){
+        User loginUser = userService.getLoginUser(request);
+        LambdaQueryWrapper<Stuinclazz> wrapper = new LambdaQueryWrapper<>( );
+        wrapper.eq(Stuinclazz::getStuId,loginUser.getId());
+        wrapper.eq(Stuinclazz::getClazzId,id);
+        return ResultUtils.success(stuinClazzService.remove(wrapper));
     }
 }
