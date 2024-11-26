@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author JZAB
  * @from http://vip.jzab.xyz
@@ -22,5 +24,5 @@ public class PaperAddRequest {
     /**
      * 试卷题目列表
      */
-    private Integer[] questionList;
+    private List<Integer> questionList;
 }

@@ -1,3 +1,6 @@
+create database if not exists oj;
+use oj;
+
 drop table if exists user;
 create table if not exists user(
     id          int          primary key auto_increment comment '主键',
@@ -12,10 +15,28 @@ create table if not exists user(
     createTime  datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
     updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 )comment '用户表';
--- 教师信息表
-
 -- 学生信息表
-
+drop table if exists stuInfo;
+create table if not exists stuInfo(
+    id          int          primary key auto_increment comment '主键',
+    introduce   text         comment '介绍',
+    isDelete    TINYINT DEFAULT(0) COMMENT '是否删除',
+    createUser  int DEFAULT(0) COMMENT '创建者',
+    updateUser  int DEFAULT(0) COMMENT '更新者',
+    createTime  datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
+)comment '用户表';
+-- 教师信息表
+drop table if exists teacherInfo;
+create table if not exists teacherInfo(
+  id          int          primary key auto_increment comment '主键',
+  introduce   text         comment '介绍',
+  isDelete    TINYINT DEFAULT(0) COMMENT '是否删除',
+  createUser  int DEFAULT(0) COMMENT '创建者',
+  updateUser  int DEFAULT(0) COMMENT '更新者',
+  createTime  datetime     default CURRENT_TIMESTAMP not null comment '创建时间',
+  updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
+)comment '用户表';
 -- 班级表
 drop table if exists clazz;
 create table if not exists clazz(
@@ -29,7 +50,7 @@ create table if not exists clazz(
     updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 )comment '班级表';
 -- 学生分班情况
-drop table if exists stuInClazz;
+drop table if exists stuinclazz;
 create table if not exists stuInClazz(
     id int primary key auto_increment comment '主键',
     stuId int not null comment '学生ID',
@@ -56,7 +77,7 @@ create table if not exists course(
     updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 )comment '课程表';
 
-drop table if exists stuInCourse;
+drop table if exists stuincourse;
 create table if not exists stuInCourse(
      id int primary key auto_increment comment '主键',
      stuId int not null comment '学生ID',
@@ -68,7 +89,7 @@ create table if not exists stuInCourse(
      updateTime  datetime     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间'
 )comment '学生课程关联表';
 -- 题库表
-drop table if exists questionBank;
+drop table if exists questionbank;
 create table if not exists questionBank(
     id int primary key auto_increment comment '主键',
     name varchar(255) not null comment '题库名字',
@@ -126,7 +147,7 @@ create table if not exists exam(
 )comment '考试表';
 
 -- 学生考试记录表
-drop table if exists stuExamRecord;
+drop table if exists stuexamrecord;
 create table if not exists stuExamRecord(
     id int primary key auto_increment comment '主键',
     stuId int not null comment '学生ID',

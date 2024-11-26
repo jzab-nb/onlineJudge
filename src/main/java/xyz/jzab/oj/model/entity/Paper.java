@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.Data;
  * 试卷表
  * @TableName paper
  */
-@TableName(value ="paper")
+@TableName(value ="paper",autoResultMap = true)
 @Data
 public class Paper implements Serializable {
     /**
@@ -37,7 +38,7 @@ public class Paper implements Serializable {
      * 试卷题目列表
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
-    private Integer[] questionList;
+    private List<Integer> questionList;
 
     /**
      * 是否删除

@@ -16,7 +16,7 @@ import lombok.Data;
  * 学生考试记录表
  * @TableName stuexamrecord
  */
-@TableName(value ="stuexamrecord")
+@TableName(value ="stuexamrecord",autoResultMap = true)
 @Data
 public class Stuexamrecord implements Serializable {
     /**
@@ -39,7 +39,10 @@ public class Stuexamrecord implements Serializable {
      * 考试答案
      */
     @TableField(typeHandler = JacksonTypeHandler.class)
-    private List<Map<String,Object>> answerList;
+    // { 答案,得分,是否正确,是否已经判完
+    //  0:{answer:"", score:0, isRight:"YES|NO|HALF",isJudge:false}
+    // }
+    private Map<String,Map<String,Object>> answerList;
 
     /**
      * 考试分数

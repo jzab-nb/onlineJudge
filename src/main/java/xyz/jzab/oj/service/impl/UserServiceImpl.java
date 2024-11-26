@@ -121,7 +121,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         BeanUtils.copyProperties(userUpdateRequest, user);
         user.setCreateUser(loginUser.getId());
-        user.setUpdateUser(loginUser.getId());
         return this.updateById(user);
     }
 
